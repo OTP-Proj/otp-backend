@@ -1,0 +1,42 @@
+server:
+  port: 8088
+  servlet:
+    context-path: /api
+
+datasource:
+  url: jdbc:postgresql://164.68.118.151:5432/dss_db
+  username: dss_devs
+  password: 39k#r&fDc7aV
+
+spring:
+  jackson:
+    time-zone: UTC
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  main:
+    debug: true
+  datasource:
+#    url: jdbc:postgresql://postgres2:5432/otp_db #--for server
+    url: jdbc:postgresql://localhost:5432/otp_db #--for local
+    username: OTPUser
+    password: OTPUser@123
+  liquibase:
+    change-log: classpath:db/changelog/changelog.xml
+    default-schema: otp_db
+
+  jpa:
+    properties:
+      hibernate.default_schema: otp_db
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+otp:
+  testjson: test-users.json
+  token:
+    expired-in: 1440
+
+jwt:
+  salt: ThisIssalT00019127324353
+  secret: thisissecret
+  expires: 30000000

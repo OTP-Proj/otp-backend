@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  postgres2:
+    image: postgres:latest
+    container_name: postgresql_otp
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: OTPUser
+      POSTGRES_PASSWORD: OTPUser@123
+      POSTGRES_DB: otp_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgresql_data_otp:/var/lib/postgresql/data
+    networks:
+      - db_network
+
+  spring-boot-app:
+    build:
+      context: .
+    ports:
+      - "8088:8088"
+    depends_on:
+      - postgres2
+    networks:
+      - db_network
+
+
+networks:
+  db_network:
+    driver: bridge

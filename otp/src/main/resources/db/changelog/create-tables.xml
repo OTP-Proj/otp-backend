@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="01-create-users" author="javidan.alizada">
+        <createTable tableName="users" schemaName="otp_db">
+            <column name="id" type="uuid">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="userCode" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="userRole" type="varchar(50)" defaultValue="USER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="02-create_jwt_token_entity_table" author="javidan.alizada">
+        <createTable tableName="jwt_token" schemaName="otp_db">
+            <column name="id" type="uuid">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="token" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expired_at" type="timestamp with time zone" defaultValueComputed="current_timestamp"/>
+            <column name="active" type="boolean" defaultValue="true">
+                <constraints nullable="true"/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="03-add-foreign-key-to-otp_tokens" author="javidan.alizada">
+        <addForeignKeyConstraint baseTableName="jwt_token" baseColumnNames="user_id"
+                                 constraintName="user_id_jwt_token_fk"
+                                 referencedTableName="users" referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="04-modify_token_column" author="javidan.alizada">
+        <modifyDataType tableName="jwt_token" columnName="token" newDataType="TEXT"/>
+    </changeSet>
+
+</databaseChangeLog>
