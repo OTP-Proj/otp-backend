@@ -27,6 +27,15 @@ public enum UserType {
         throw new RuntimeException("UserType is not found");
     }
 
+    public static UserType fromEnValue(String en) {
+        for (UserType userType : UserType.values()) {
+            if (userType.getEn().equals(en)) {
+                return userType;
+            }
+        }
+        throw new RuntimeException("UserType is not found");
+    }
+
     @Override
     public String toString() {
         return en;

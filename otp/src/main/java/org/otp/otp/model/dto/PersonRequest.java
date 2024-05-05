@@ -14,5 +14,5 @@ public class PersonRequest {
     private String surname;
     private String roomNumber;
     private String cardId;
-    private UserType userType;
+    private String userType;
 }

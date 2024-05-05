@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/v1/person")
+@RequestMapping("/v1/users")
 @RestController
-@CrossOrigin
 public class PersonController {
 
     private final PersonService personService;
