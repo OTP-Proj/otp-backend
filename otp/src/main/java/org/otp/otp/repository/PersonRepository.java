@@ -28,42 +28,43 @@ public class PersonRepository {
     }
 
     public PersonResponse createPerson(PersonRequest request) {
-        String id = ID.value();
-        String deptName = UserType.fromEnValue(request.getUserType()).getRu();
-        String sqlResultAuthDept = jdbcTemplate.queryForObject(SQL.FIND_AUTH_DEPT_ID_BY_USER_TYPE, String.class, "'" + deptName + "'");
-        if (sqlResultAuthDept == null || sqlResultAuthDept.isBlank()) {
-            throw new BaseException("User Type is not found", HttpStatus.BAD_REQUEST);
-        }
-        String sql = prepareInsertCommandPerson(request, id, sqlResultAuthDept);
-        int created = jdbcTemplate.update(sql);
-        if (created <= 0) {
-            throw new BaseException("Exception occurred while creating user ", HttpStatus.BAD_REQUEST);
-        }
-        String idForCard = ID.value();
-        String sqlForCard = prepareInsertCommandCard(request, idForCard);
-        int createdCard = jdbcTemplate.update(sqlForCard);
-        if (createdCard <= 0) {
-            throw new BaseException("Exception occurred while creating card and room ", HttpStatus.BAD_REQUEST);
-        }
-        PersonResponse response = new PersonResponse();
-        response.setUsername(request.getUsername());
-        response.setSurname(request.getSurname());
-        response.setCardId(request.getCardId());
-        response.setUserType(request.getUserType());
-        response.setRoomNumber(request.getRoomNumber());
-        response.setId(id);
-        return response;
+//        String id = ID.value();
+//        String deptName = UserType.fromEnValue(request.getUserType()).getRu();
+//        String sqlResultAuthDept = jdbcTemplate.queryForObject(SQL.FIND_AUTH_DEPT_ID_BY_USER_TYPE, String.class, "'" + deptName + "'");
+//        if (sqlResultAuthDept == null || sqlResultAuthDept.isBlank()) {
+//            throw new BaseException("User Type is not found", HttpStatus.BAD_REQUEST);
+//        }
+//        String sql = prepareInsertCommandPerson(request, id, sqlResultAuthDept);
+//        int created = jdbcTemplate.update(sql);
+//        if (created <= 0) {
+//            throw new BaseException("Exception occurred while creating user ", HttpStatus.BAD_REQUEST);
+//        }
+//        String idForCard = ID.value();
+//        String sqlForCard = prepareInsertCommandCard(request, idForCard);
+//        int createdCard = jdbcTemplate.update(sqlForCard);
+//        if (createdCard <= 0) {
+//            throw new BaseException("Exception occurred while creating card and room ", HttpStatus.BAD_REQUEST);
+//        }
+//        PersonResponse response = new PersonResponse();
+//        response.setUsername(request.getUsername());
+//        response.setSurname(request.getSurname());
+//        response.setCardId(request.getCardId());
+//        response.setUserType(request.getUserType());
+//        response.setRoomNumber(request.getRoomNumber());
+//        response.setId(id);
+//        return response;
+        return null;
     }
 
-    private String prepareInsertCommandCard(PersonRequest request, String idForCard) {
+//    private String prepareInsertCommandCard(PersonRequest request, String idForCard) {
+//
+//    }
 
-    }
-
-    private String prepareInsertCommandPerson(PersonRequest request, String id, String sqlResultAuthDept) {
-        String sqlResultOfLastPin = jdbcTemplate.queryForObject(SQL.FIND_PERSON_LAST_PIN, String.class);
-        var now = Timestamp.valueOf(LocalDateTime.now());
-
-    }
+//    private String prepareInsertCommandPerson(PersonRequest request, String id, String sqlResultAuthDept) {
+//        String sqlResultOfLastPin = jdbcTemplate.queryForObject(SQL.FIND_PERSON_LAST_PIN, String.class);
+//        var now = Timestamp.valueOf(LocalDateTime.now());
+//
+//    }
 
     public PersonResponse getPersonById(String id) {
         return jdbcTemplate.queryForObject(SQL.FIND_PERSON_BY_ID, new PersonResponseRowMapper(), id);

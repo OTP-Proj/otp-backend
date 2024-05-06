@@ -17,10 +17,7 @@ public class PersonResponse {
     private String roomNumber;
     private String cardId;
     private String userType;
-
     private String createdAt;
-
     private String modifiedAt;
-
     private Boolean active;
 }

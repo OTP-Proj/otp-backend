@@ -4,9 +4,9 @@ server:
     context-path: /api
 
 datasource:
-  url: jdbc:postgresql://164.68.118.151:5432/dss_db
-  username: dss_devs
-  password: 39k#r&fDc7aV
+  url: jdbc:postgresql://10.100.40.2:5442/biosecurity-boot
+  username: root
+  password: 2sgQc4cM
 
 spring:
   jackson:
@@ -19,8 +19,8 @@ spring:
   datasource:
 #    url: jdbc:postgresql://postgres2:5432/otp_db #--for server
     url: jdbc:postgresql://localhost:5432/otp_db #--for local
-    username: OTPUser
-    password: OTPUser@123
+    username: javidan
+    password: javidan
   liquibase:
     change-log: classpath:db/changelog/changelog.xml
     default-schema: otp_db
