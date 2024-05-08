@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="01-create-users" author="javidan.alizada">
+    <changeSet id="01-create-users" author="javidan@alizada">
         <createTable tableName="users" schemaName="public">
             <column name="id" type="uuid">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
@@ -19,7 +19,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="02-create_jwt_token_entity_table" author="javidan.alizada">
+    <changeSet id="02-create_jwt_token_entity_table" author="javidan@alizada">
         <createTable tableName="jwt_token" schemaName="public">
             <column name="id" type="uuid">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
@@ -37,13 +37,13 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="03-add-foreign-key-to-otp_tokens" author="javidan.alizada">
+    <changeSet id="03-add-foreign-key-to-otp_tokens" author="javidan@alizada">
         <addForeignKeyConstraint baseTableName="jwt_token" baseColumnNames="user_id"
                                  constraintName="user_id_jwt_token_fk"
                                  referencedTableName="users" referencedColumnNames="id"/>
     </changeSet>
 
-    <changeSet id="04-modify_token_column" author="javidan.alizada">
+    <changeSet id="04-modify_token_column" author="javidan@alizada">
         <modifyDataType tableName="jwt_token" columnName="token" newDataType="TEXT"/>
     </changeSet>
 
