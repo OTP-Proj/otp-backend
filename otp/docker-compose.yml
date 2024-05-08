@@ -5,8 +5,8 @@ services:
     container_name: postgresql_otp
     restart: unless-stopped
     environment:
-      POSTGRES_USER: OTPUser
-      POSTGRES_PASSWORD: OTPUser@123
+      POSTGRES_USER: OtpUser
+      POSTGRES_PASSWORD: Otp@10934!PasswAA
       POSTGRES_DB: otp_db
     ports:
       - "5432:5432"

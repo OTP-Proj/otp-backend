@@ -11,9 +11,9 @@
             <column name="id" type="uuid">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
-            <column name="userCode" type="varchar(255)"/>
+            <column name="user_code" type="varchar(255)"/>
             <column name="password" type="varchar(255)"/>
-            <column name="userRole" type="varchar(50)" defaultValue="USER">
+            <column name="user_role" type="varchar(50)" defaultValue="USER">
                 <constraints nullable="false"/>
             </column>
         </createTable>
