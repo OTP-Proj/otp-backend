@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: OtpUser
       POSTGRES_PASSWORD: Otp@10934!PasswAA
-      POSTGRES_DB: postgres
+      POSTGRES_DB: public
     ports:
       - "5432:5432"
     volumes:
