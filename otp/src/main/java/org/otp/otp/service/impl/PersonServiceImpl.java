@@ -1,13 +1,17 @@
 package org.otp.otp.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.otp.otp.model.dto.PersonRequest;
 import org.otp.otp.model.dto.PersonResponse;
 import org.otp.otp.repository.PersonRepository;
 import org.otp.otp.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@Slf4j
 public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
 
