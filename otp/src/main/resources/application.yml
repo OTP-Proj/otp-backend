@@ -18,16 +18,16 @@ spring:
     debug: true
   datasource:
 #    url: jdbc:postgresql://postgres2:5432/otp_db #--for server
-    url: jdbc:postgresql://postgres2:5432/otp_db #--for local
+    url: jdbc:postgresql://postgres2:5432/postgres #--for local
     username: OtpUser
     password: Otp@10934!PasswAA
   liquibase:
     change-log: classpath:db/changelog/changelog.xml
-    default-schema: otp_db
+    default-schema: postgres
 
   jpa:
     properties:
-      hibernate.default_schema: otp_db
+      hibernate.default_schema: postgres
     show-sql: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
