@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(schema = "public", name = "users")
+@Table(schema = "public", name = "users_otp")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

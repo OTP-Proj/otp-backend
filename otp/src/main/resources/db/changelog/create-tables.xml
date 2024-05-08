@@ -6,8 +6,8 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="01-create-users" author="javidan@alizada">
-        <createTable tableName="users" schemaName="public">
+    <changeSet id="01-create-users" author="javidan@alizadaotp">
+        <createTable tableName="users_otp" schemaName="public">
             <column name="id" type="uuid">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
@@ -19,8 +19,8 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="02-create_jwt_token_entity_table" author="javidan@alizada">
-        <createTable tableName="jwt_token" schemaName="public">
+    <changeSet id="02-create_jwt_token_entity_table" author="javidan@alizadaotp">
+        <createTable tableName="jwt_token_otp" schemaName="public">
             <column name="id" type="uuid">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
@@ -37,14 +37,14 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="03-add-foreign-key-to-otp_tokens" author="javidan@alizada">
-        <addForeignKeyConstraint baseTableName="jwt_token" baseColumnNames="user_id"
+    <changeSet id="03-add-foreign-key-to-otp_tokens" author="javidan@alizadaotp">
+        <addForeignKeyConstraint baseTableName="jwt_token_otp" baseColumnNames="user_id"
                                  constraintName="user_id_jwt_token_fk"
-                                 referencedTableName="users" referencedColumnNames="id"/>
+                                 referencedTableName="users_otp" referencedColumnNames="id"/>
     </changeSet>
 
-    <changeSet id="04-modify_token_column" author="javidan@alizada">
-        <modifyDataType tableName="jwt_token" columnName="token" newDataType="TEXT"/>
+    <changeSet id="04-modify_token_column" author="javidan@alizadaotp">
+        <modifyDataType tableName="jwt_token_otp" columnName="token" newDataType="TEXT"/>
     </changeSet>
 
 </databaseChangeLog>
