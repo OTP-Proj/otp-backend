@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(schema = "otp_db", name = "jwt_token")
+@Table(schema = "postgres", name = "jwt_token")
 public class JwtTokenEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
