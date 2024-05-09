@@ -4,15 +4,13 @@ import org.otp.otp.model.dto.MonitoringResponse;
 import org.otp.otp.service.MonitoringService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequestMapping("/v1/monitoring")
 @RestController
+@CrossOrigin
 public class MonitoringController {
 
     private final MonitoringService monitoringService;
