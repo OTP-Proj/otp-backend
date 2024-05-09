@@ -46,6 +46,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         userEntOpt.orElseThrow(UserNotFoundException::new);
 
+        var userEnt = userEntOpt.get();
+
+        String encodedPassword = userEnt.getPassword();
+        String encodedIncomingPassword = passwordEncoder.encode(loginRequest.getPassword());
+
+        if (!passwordEncoder.matches(loginRequest.getPassword(), encodedPassword)) {
+            throw new UserNotFoundException();
+        }
+
         var userEntity = userEntOpt.get();
 
         return getJwtTokenResponseIfJwtTokenIsGenerated(userEntity);
