@@ -2,6 +2,13 @@ server:
   port: 8088
   servlet:
     context-path: /api
+  ssl:
+    key-store-type: PKCS12
+    key-store: ${KEYSTORE_LOCATION}
+    #    key-store: file:///C:/Users/Lenovo/Desktop/projects/estate/estate/keystore.p12
+    key-store-password: otpproject
+    key-alias: otpproject
+
 
 datasource:
   url: jdbc:postgresql://10.100.40.2:5442/biosecurity-boot

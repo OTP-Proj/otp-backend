@@ -6,5 +6,8 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
+ARG KEYSTORE_LOCATION
+ENV KEYSTORE_LOCATION ${KEYSTORE_LOCATION}
+COPY keystore.p12 /app/keystore.p12
 EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]

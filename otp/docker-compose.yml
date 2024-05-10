@@ -18,6 +18,8 @@ services:
   spring-boot-app:
     build:
       context: .
+      args:
+        KEYSTORE_LOCATION: /app/keystore.p12
     ports:
       - "8088:8088"
     depends_on:
