@@ -10,7 +10,6 @@ import java.util.List;
 
 @RequestMapping("/v1/monitoring")
 @RestController
-@CrossOrigin
 public class MonitoringController {
 
     private final MonitoringService monitoringService;
