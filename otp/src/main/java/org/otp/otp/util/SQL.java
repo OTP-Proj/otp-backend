@@ -47,7 +47,7 @@ public interface SQL {
     String GET_HISTORY_OF_TRANSACTION = """
             SELECT trx.event_time AS "time",\s
             trx.reader_name AS device,
-            trx.name || " " || trx.last_name AS person,
+            trx.name || ' ' || trx.last_name AS person,
             trx.dept_name AS "type",
             trx.card_no AS card\s
             FROM acc_transaction AS trx
@@ -60,7 +60,7 @@ public interface SQL {
     String GET_HISTORY_OF_TRANSACTION_WITH_FILTER = """
             SELECT trx.event_time AS "time",\s
             trx.reader_name AS device,
-            trx.name || " " || trx.last_name AS person,
+            trx.name || ' ' || trx.last_name AS person,
             trx.dept_name AS "type",
             trx.card_no AS card\s
             FROM acc_transaction AS trx
