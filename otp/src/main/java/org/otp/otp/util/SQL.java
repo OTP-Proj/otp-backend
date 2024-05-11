@@ -54,6 +54,7 @@ public interface SQL {
             WHERE trx.event_point_id IN('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771' 
             '297e9a79821ad2e601821ae015860770', '297e9a79821ad2e601821ae015860772')
             AND trx.dept_name IS NOT NULL
+            AND trx.dept_name != ''
             ORDER BY id DESC
             LIMIT 100;
             """;
@@ -69,5 +70,6 @@ public interface SQL {
             WHERE trx.event_point_id IN('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771' 
             '297e9a79821ad2e601821ae015860770', '297e9a79821ad2e601821ae015860772')
             AND trx.dept_name IS NOT NULL
+            AND trx.dept_name != ''
             """;
 }

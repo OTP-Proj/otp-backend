@@ -19,6 +19,7 @@ public enum UserType {
     }
 
     public static UserType fromValue(String ru) {
+        System.out.println("value: " + ru);
         for (UserType userType : UserType.values()) {
             if (userType.getRu().equals(ru)) {
                 return userType;
@@ -28,6 +29,7 @@ public enum UserType {
     }
 
     public static UserType fromEnValue(String en) {
+        System.out.println("value: " + en);
         for (UserType userType : UserType.values()) {
             if (userType.getEn().equals(en)) {
                 return userType;
