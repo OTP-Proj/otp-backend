@@ -67,6 +67,7 @@ public class MonitoringRepository {
     private static class MonitoringResponseRowMapper implements RowMapper<MonitoringResponse> {
         @Override
         public MonitoringResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
+            System.out.println("Mapping is working now!!!");
             MonitoringResponse monitoringResponse = new MonitoringResponse();
             monitoringResponse.setCard(rs.getString("card"));
             monitoringResponse.setType(getUserType(rs.getString("type")));
