@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -67,7 +68,7 @@ public class MonitoringRepository {
     private static class MonitoringResponseRowMapper implements RowMapper<MonitoringResponse> {
         @Override
         public MonitoringResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
-            System.out.println("Mapping is working now!!!");
+            System.out.println("Mapping is working now!!! " + LocalDateTime.now());
             MonitoringResponse monitoringResponse = new MonitoringResponse();
             monitoringResponse.setCard(rs.getString("card"));
             monitoringResponse.setType(getUserType(rs.getString("type")));
