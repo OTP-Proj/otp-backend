@@ -29,7 +29,6 @@ public class MonitoringRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Cacheable(value = "LiveCache")
     public List<MonitoringResponse> getLiveData() {
         return jdbcTemplate.query(SQL.GET_HISTORY_OF_TRANSACTION, new MonitoringResponseRowMapper());
     }
