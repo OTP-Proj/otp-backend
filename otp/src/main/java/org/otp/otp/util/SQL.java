@@ -51,8 +51,7 @@ public interface SQL {
             trx.dept_name AS "type",
             trx.card_no AS card\s
             FROM acc_transaction AS trx
-            WHERE trx.event_point_id IN('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771' 
-            '297e9a79821ad2e601821ae015860770', '297e9a79821ad2e601821ae015860772')
+            WHERE trx.event_point_id IN('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771', '297e9a79821ad2e601821ae015860770', '297e9a79821ad2e601821ae015860772')
             AND trx.dept_name IS NOT NULL
             AND trx.dept_name != ''
             ORDER BY id DESC
@@ -67,8 +66,7 @@ public interface SQL {
             trx.card_no AS card\s
             FROM acc_transaction AS trx
             INNER JOIN pers_card as crd ON  crd.card_no = trx.card_no
-            WHERE trx.event_point_id IN('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771' 
-            '297e9a79821ad2e601821ae015860770', '297e9a79821ad2e601821ae015860772')
+            WHERE trx.event_point_id IN('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771', '297e9a79821ad2e601821ae015860770', '297e9a79821ad2e601821ae015860772')
             AND trx.dept_name IS NOT NULL
             AND trx.dept_name != ''
             """;
