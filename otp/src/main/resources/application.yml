@@ -31,9 +31,6 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/changelog.xml
     default-schema: public
-  cache:
-    ehcache:
-      config: classpath:ehcache.xml
 
   jpa:
     properties:

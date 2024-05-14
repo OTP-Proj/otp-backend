@@ -4,7 +4,6 @@ import org.otp.otp.model.dto.MonitoringResponse;
 import org.otp.otp.model.dto.UserType;
 import org.otp.otp.util.SQL;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -33,7 +32,6 @@ public class MonitoringRepository {
         return jdbcTemplate.query(SQL.GET_HISTORY_OF_TRANSACTION, new MonitoringResponseRowMapper());
     }
 
-    @Cacheable(value = "FilterCache")
     public List<MonitoringResponse> getFilteredData(String username, String from,
                                                     String to, String cardId, String roomNumber) {
         return jdbcTemplate.query(prepareQueryOfTransactionHistoryWithFilter(username, from, to, cardId, roomNumber),
