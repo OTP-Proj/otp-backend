@@ -10,12 +10,14 @@ public interface SQL {
             AND pers.status != -1 AND pers.id = ?;
             """;;
     String FIND_ALL_PERSONS = """
-            SELECT pers.id, pers.name, pers.last_name, card.card_no, card.room_number, pers.create_time, pers.update_time,  dep.name AS user_type\s
-            FROM pers_person pers\s
+            SELECT pers.id, pers.name, pers.last_name, card.card_no, card.room_number, pers.create_time, pers.update_time,  dep.name AS user_type,
+            card.person_pin
+            FROM pers_person pers
             INNER JOIN auth_department dep ON  dep.id = pers.auth_dept_id
             INNER JOIN pers_card card ON card.person_id = pers.id
             WHERE dep.id NOT IN('297e9a79867a0d710186e52a4b2e7489', '297e9a79867a0d710186e53398a4761f')
-            AND pers.status != -1;
+            AND pers.status != -1
+            order by pers.create_time desc;
             """;
     String INSERT_PERSON = """
             INSERT INTO pers_person(id, create_time, creator_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
