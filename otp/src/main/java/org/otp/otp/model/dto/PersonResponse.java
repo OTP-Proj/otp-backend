@@ -1,13 +1,6 @@
 package org.otp.otp.model.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Data;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import java.util.Date;
-import java.util.UUID;
 
 @Data
 public class PersonResponse {
@@ -20,4 +13,5 @@ public class PersonResponse {
     private String createdAt;
     private String modifiedAt;
     private Boolean active;
+    private String personPin;
 }

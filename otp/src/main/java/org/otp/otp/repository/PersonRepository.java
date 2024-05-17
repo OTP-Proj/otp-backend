@@ -4,6 +4,7 @@ import org.otp.otp.exception.BaseException;
 import org.otp.otp.model.dto.PersonRequest;
 import org.otp.otp.model.dto.PersonResponse;
 import org.otp.otp.model.dto.UserType;
+import org.otp.otp.util.Encryption;
 import org.otp.otp.util.ID;
 import org.otp.otp.util.SQL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,17 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.otp.otp.util.SQL.isNull;
+import static org.otp.otp.util.SQL.nonNull;
+
 @Repository
 public class PersonRepository {
     private final JdbcTemplate jdbcTemplate;
+    private static final String SET_NAME = " pp.name = {name}, name_spell  = {name}";
+    private static final String SET_LAST_NAME = " last_name  = {last_name}";
+    private static final String SET_USER_TYPE = " auth_dept_id  = {auth_dept_id}";
+    private static final String WHERE_ID = "where pp.id = {id};";
+    private static String COMMA = ",";
 
     @Autowired
     public PersonRepository(JdbcTemplate jdbcTemplate) {
@@ -78,8 +87,19 @@ public class PersonRepository {
         return null;
     }
 
-    public PersonResponse delete(String id) {
-        return null;
+    public void delete(String id) {
+        System.out.println("ID: " + id);
+        String query = SQL.DELETE_PERSON.replace("{id}", format(id));
+        int updated = jdbcTemplate.update(query);
+        if (updated > 0) {
+            System.out.println("DELETE COMMAND WORKED SUCCESSFULY ");
+        } else {
+            System.out.println("DELETE COMMAND FAILED ");
+        }
+    }
+
+    private String format(String value) {
+        return "'" + value + "'";
     }
 
     private static class PersonResponseRowMapper implements RowMapper<PersonResponse> {
@@ -94,6 +114,7 @@ public class PersonRepository {
             personResponse.setUserType(getUserType(rs.getString("user_type")));
             personResponse.setCreatedAt(rs.getString("create_time"));
             personResponse.setModifiedAt(rs.getString("update_time"));
+            personResponse.setPersonPin(rs.getString("person_pin"));
             return personResponse;
         }
     }

@@ -10,12 +10,13 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.otp.otp.util.SQL.nonNull;
 
 @Repository
 public class MonitoringRepository {
-    private static final String QUERY_NAME = "\nAND trx.name LIKE %s";
+    private static final String QUERY_NAME = "\n and LOWER(trx.name || ' ' || trx.last_name) LIKE LOWER %s";
     private static final String QUERY_TIME_GTE = "\nAND trx.event_time >= %s";
     private static final String QUERY_TIME_LTE = "\nAND trx.event_time <= %s";
     private static final String QUERY_CARD_NO = "\nAND trx.card_no = %s";
@@ -43,7 +44,7 @@ public class MonitoringRepository {
                                                                      String to, String cardId, String roomNumber) {
         String query = SQL.GET_HISTORY_OF_TRANSACTION_WITH_FILTER;
         if (nonNull(username)) {
-            query += String.format(QUERY_NAME, "'%" + username + "%'");
+            query += String.format(QUERY_NAME, "('%" + username + "%')");
         }
         if (nonNull(from)) {
             query += String.format(QUERY_TIME_GTE, "'" + from + "'");
@@ -58,17 +59,15 @@ public class MonitoringRepository {
             query += String.format(QUERY_ROOM_NUMBER, "'" + roomNumber + "'");
         }
         query += QUERY_END;
+
+        System.out.println("Query Person With Filter : " + query);
         return query;
     }
 
-    private static boolean nonNull(String value) {
-        return value != null && !value.isBlank();
-    }
 
     private static class MonitoringResponseRowMapper implements RowMapper<MonitoringResponse> {
         @Override
         public MonitoringResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
-            System.out.println("Mapping is working now!!! " + LocalDateTime.now());
             MonitoringResponse monitoringResponse = new MonitoringResponse();
             monitoringResponse.setCard(rs.getString("card"));
             monitoringResponse.setType(getUserType(rs.getString("type")));
