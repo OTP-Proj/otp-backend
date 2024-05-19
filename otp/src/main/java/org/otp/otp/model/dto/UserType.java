@@ -4,18 +4,20 @@ import lombok.Getter;
 
 @Getter
 public enum UserType {
-    GUEST("Гости", "Guest"),
-    PAID("Платные", "Paid"),
-    FREE("Бесплатные", "Free"),
-    EMPLOYEE("Сотрудники", "Employee"),
-    TENANT("Арендаторы", "Tenant");
+    GUEST("Гости", "Guest", "3"),
+    PAID("Платные", "Paid", "4"),
+    FREE("Бесплатные", "Free", "5"),
+    EMPLOYEE("Сотрудники", "Employee", "1"),
+    TENANT("Арендаторы", "Tenant", "2");
 
     private final String ru;
     private final String en;
+    private final String code;
 
-    UserType(String ru, String en) {
+    UserType(String ru, String en, String code) {
         this.ru = ru;
         this.en = en;
+        this.code = code;
     }
 
     public static UserType fromValue(String ru) {

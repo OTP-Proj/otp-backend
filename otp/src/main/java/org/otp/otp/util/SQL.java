@@ -22,7 +22,7 @@ public interface SQL {
             """;
 
     String INSERT_PERSON = """
-            INSERT INTO pers_person(id, create_time, creator_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
+            INSERT INTO pers_person(id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
             updater_name, auth_dept_id, exception_flag, id_card, id_card_physical_no, is_from, is_sendmail, last_name, mobile_phone, 'NAME',
             name_spell, number_pin, person_pwd, person_type, pin, pin_letter, self_pwd, send_sms, status)
             VALUES ({id}, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 0, {update_time},
@@ -80,12 +80,19 @@ public interface SQL {
             LIMIT 1;
             """;
 
+    String FIND_CMD_LAST_ID = """
+            SELECT cmd_id
+            FROM adms_devcmd
+            ORDER BY CAST(cmd_id AS INTEGER) DESC
+            LIMIT 1;
+            """;
+
     String FIND_PERSON_LAST_PIN_PERS_CARD = """
-                SELECT person_pin
-                        FROM pers_card
-                        ORDER BY CAST(person_pin AS INTEGER) DESC
-                        LIMIT 1;
-                        """;
+            SELECT person_pin
+                    FROM pers_card
+                    ORDER BY CAST(person_pin AS INTEGER) DESC
+                    LIMIT 1;
+                    """;
 
     String GET_HISTORY_OF_TRANSACTION = """
             SELECT trx.event_time AS "time",\s
@@ -112,6 +119,82 @@ public interface SQL {
             WHERE trx.event_point_id IN('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771', '297e9a79821ad2e601821ae015860770', '297e9a79821ad2e601821ae015860772')
             AND trx.dept_name IS NOT NULL
             AND trx.dept_name != ''
+            """;
+
+    String INSERT_ACC_PERSON = """
+            INSERT INTO acc_person (id, app_id, bio_tbl_id, company_id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
+            						updater_name, delay_passage, disabled, end_time, is_set_valid_time, pers_person_id, privilege, start_time, super_auth)
+                        VALUES ({id}, null, null, null, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 0, {update_time},
+                         'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', false, false, null, false, {pers_person_id}, 0, null, 0);
+            """;
+
+    String INSERT_ATT_PERSON = """
+            INSERT INTO att_person (id, app_id, bio_tbl_id, company_id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
+            						updater_name, annual_leave_days , annual_valid_date , auth_dept_code , auth_dept_id, auth_dept_name ,
+            						group_id , hire_date, pers_person_id , pers_person_lastname ,pers_person_name, pers_person_pin)
+                        VALUES ({id}, null, null, null, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 0, {update_time},
+                         'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', null, null,  {auth_dept_code}, {auth_dept_id}, {auth_dept_name}, 
+                        'NOGROUP', null, {pers_person_id},{pers_person_last},{pers_person_name}, {pers_person_pin});
+            """;
+
+    String INSERT_ACC_LEVEL_PERSON = """
+            INSERT INTO acc_level_person (id, app_id, bio_tbl_id, company_id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
+            						updater_name,  pers_person_id , level_id)
+                        VALUES ({id}, null, null, null, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 0, {update_time},
+                         'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', {pers_person_id}, '297e9a79821ad2e601821ad4724e03c9');
+            """;
+
+    String INSERT_PERS_ATTR_EXT_LEVEL_PERSON = """
+            INSERT INTO pers_attribute_ext (id, app_id, bio_tbl_id, company_id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
+            						updater_name,  person_id)
+                        VALUES ({id}, null, null, null, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 1, {update_time},
+                         'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', {pers_person_id});
+            """;
+
+    String INSERT_ADMS_DEVCMD_1 = """
+INSERT INTO adms_devcmd (id, app_id, bio_tbl_id, company_id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
+                       updater_name,  app_name, cmd_id, commit_time, "content",  is_imme, remark, return_time, return_value, sn)
+            VALUES ({id}, null, null, null, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 1, {update_time},
+             'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 'acc', {last_cmd_id_1}, {commit_time}, 'DATA DELETE templatev10 Pin={user_pin}', false, null, {return_time}, 'CM7M211360031');
+             """;
+    String INSERT_ADMS_DEVCMD_2 = """
+            INSERT INTO adms_devcmd (id, app_id, bio_tbl_id, company_id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
+                                   updater_name,  app_name, cmd_id, commit_time, "content",  is_imme, remark, return_time, return_value, sn)
+                        VALUES ({id}, null, null, null, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 1, {update_time},
+                         'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 'acc', {last_cmd_id_2}, {commit_time}, 'DATA UPDATE user CardNo={card_no}	Pin={user_pin}	Password=	Group=0	StartTime=0	EndTime=0	Name=Test	SuperAuthorize=0	Disable=0', false, null, {return_time}, 'CM7M211360031');\s
+            """;
+    String INSERT_ADMS_DEVCMD_3 = """
+                 INSERT INTO adms_devcmd (id, app_id, bio_tbl_id, company_id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
+                                        updater_name,  app_name, cmd_id, commit_time, "content",  is_imme, remark, return_time, return_value, sn)
+                             VALUES ({id}, null, null, null, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 1, {update_time},
+                              'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 'acc', {last_cmd_id_3}, {commit_time}, 'DATA UPDATE extuser Pin={user_pin}	FunSwitch=0', false, null, {return_time}, 'CM7M211360031');
+            """;
+    String INSERT_ADMS_DEVCMD_4 = """
+                             INSERT INTO adms_devcmd (id, app_id, bio_tbl_id, company_id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
+                            updater_name,  app_name, cmd_id, commit_time, "content",  is_imme, remark, return_time, return_value, sn)
+                 VALUES ({id}, null, null, null, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 1, {update_time},
+                  'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 'acc', {last_cmd_id_4}, {commit_time}, 'DATA UPDATE userauthorize Pin={user_pin}	AuthorizeTimezoneId=1	AuthorizeDoorId=15', false, null, {return_time}, 'CM7M211360031');
+            """;
+
+    String INSERT_PERS_ISSUECARD = """
+            INSERT INTO pers_issuecard(id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
+                        updater_name, card_no, last_name, "name", operate_type , pin)
+                        VALUES ({id}, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 0, {update_time},
+                        'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', {card_no}, {last_name}, {name}, '1', {person_pin});
+            """;
+
+    String INSERT_PERS_LINK = """
+            INSERT INTO pers_person_link(id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
+                        updater_name, link_id, person_id, "type")
+                        VALUES ({id}, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 0, {update_time},
+                        'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', '297e9a79821ad2e601821ad4724e03c9', {person_id}, 'ACC_LEVEL');
+            """;
+
+    String INSERT_PSG_PERSON = """
+            INSERT INTO psg_person(id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
+                        updater_name, pers_person_id, privilege, super_auth)
+                        VALUES ({id}, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 0, {update_time},
+                        'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', {pers_id}, 0, 0);
             """;
 
     static boolean nonNull(String value) {
