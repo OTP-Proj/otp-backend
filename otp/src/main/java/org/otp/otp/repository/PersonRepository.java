@@ -164,7 +164,7 @@ public class PersonRepository {
                 .replace("{update_time}", format(Timestamp.valueOf(LocalDateTime.now()).toString()))
                 .replace("{last_cmd_id_1}", format(sqlResultOfLastCmd + 1))
                 .replace("{commit_time}", format(Timestamp.valueOf(LocalDateTime.now()).toString()))
-                .replace("{user_pin}", format(increasedNum))
+                .replace("{user_pin}", increasedNum)
                 .replace("{return_time}", format(Timestamp.valueOf(LocalDateTime.now()).toString()));
         System.out.println("INSERT INSERT_ADMS_DEVCMD_1 QUERY!!!:  " + INSERT_ADMS_DEVCMD_1);
 
@@ -183,8 +183,8 @@ public class PersonRepository {
                 .replace("{update_time}", format(Timestamp.valueOf(LocalDateTime.now()).toString()))
                 .replace("{last_cmd_id_2}", format(sqlResultOfLastCmd + 2))
                 .replace("{commit_time}", format(Timestamp.valueOf(LocalDateTime.now()).toString()))
-                .replace("{card_no}", format(request.getCardId()))
-                .replace("{user_pin}", format(increasedNum))
+                .replace("{card_no}", request.getCardId())
+                .replace("{user_pin}", increasedNum)
                 .replace("{return_time}", format(Timestamp.valueOf(LocalDateTime.now()).toString()));
         System.out.println("INSERT INSERT_ADMS_DEVCMD_2 QUERY!!!:  " + INSERT_ADMS_DEVCMD_2);
 
@@ -205,7 +205,7 @@ public class PersonRepository {
                 .replace("{update_time}", format(Timestamp.valueOf(LocalDateTime.now()).toString()))
                 .replace("{last_cmd_id_3}", format(sqlResultOfLastCmd + 3))
                 .replace("{commit_time}", format(Timestamp.valueOf(LocalDateTime.now()).toString()))
-                .replace("{user_pin}", format(increasedNum))
+                .replace("{user_pin}", increasedNum)
                 .replace("{return_time}", format(Timestamp.valueOf(LocalDateTime.now()).toString()));
         System.out.println("INSERT INSERT_ADMS_DEVCMD_3 QUERY!!!:  " + INSERT_ADMS_DEVCMD_3);
 
@@ -225,7 +225,7 @@ public class PersonRepository {
                 .replace("{update_time}", format(Timestamp.valueOf(LocalDateTime.now()).toString()))
                 .replace("{last_cmd_id_4}", format(sqlResultOfLastCmd + 4))
                 .replace("{commit_time}", format(Timestamp.valueOf(LocalDateTime.now()).toString()))
-                .replace("{user_pin}", format(increasedNum))
+                .replace("{user_pin}", increasedNum)
                 .replace("{return_time}", format(Timestamp.valueOf(LocalDateTime.now()).toString()));
         System.out.println("INSERT INSERT_ADMS_DEVCMD_4 QUERY!!!:  " + INSERT_ADMS_DEVCMD_4);
 
