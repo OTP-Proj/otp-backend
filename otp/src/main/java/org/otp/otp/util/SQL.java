@@ -155,25 +155,25 @@ public interface SQL {
 INSERT INTO adms_devcmd (id, app_id, bio_tbl_id, company_id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
                        updater_name,  app_name, cmd_id, commit_time, "content",  is_imme, remark, return_time, return_value, sn)
             VALUES ({id}, null, null, null, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 1, {update_time},
-             'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 'acc', {last_cmd_id_1}, {commit_time}, 'DATA DELETE templatev10 Pin={user_pin}', false, null, {return_time}, 'CM7M211360031');
+             'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 'acc', {last_cmd_id_1}, {commit_time}, 'DATA DELETE templatev10 Pin={user_pin}', false, null, {return_time}, '0', 'CM7M211360031');
              """;
     String INSERT_ADMS_DEVCMD_2 = """
             INSERT INTO adms_devcmd (id, app_id, bio_tbl_id, company_id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
                                    updater_name,  app_name, cmd_id, commit_time, "content",  is_imme, remark, return_time, return_value, sn)
                         VALUES ({id}, null, null, null, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 1, {update_time},
-                         'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 'acc', {last_cmd_id_2}, {commit_time}, 'DATA UPDATE user CardNo={card_no}	Pin={user_pin}	Password=	Group=0	StartTime=0	EndTime=0	Name=Test	SuperAuthorize=0	Disable=0', false, null, {return_time}, 'CM7M211360031');\s
+                         'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 'acc', {last_cmd_id_2}, {commit_time}, 'DATA UPDATE user CardNo={card_no}	Pin={user_pin}	Password=	Group=0	StartTime=0	EndTime=0	Name=Test	SuperAuthorize=0	Disable=0', false, null, {return_time}, '0', 'CM7M211360031');\s
             """;
     String INSERT_ADMS_DEVCMD_3 = """
                  INSERT INTO adms_devcmd (id, app_id, bio_tbl_id, company_id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
                                         updater_name,  app_name, cmd_id, commit_time, "content",  is_imme, remark, return_time, return_value, sn)
                              VALUES ({id}, null, null, null, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 1, {update_time},
-                              'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 'acc', {last_cmd_id_3}, {commit_time}, 'DATA UPDATE extuser Pin={user_pin}	FunSwitch=0', false, null, {return_time}, 'CM7M211360031');
+                              'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 'acc', {last_cmd_id_3}, {commit_time}, 'DATA UPDATE extuser Pin={user_pin}	FunSwitch=0', false, null, {return_time}, '0', 'CM7M211360031');
             """;
     String INSERT_ADMS_DEVCMD_4 = """
                              INSERT INTO adms_devcmd (id, app_id, bio_tbl_id, company_id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
                             updater_name,  app_name, cmd_id, commit_time, "content",  is_imme, remark, return_time, return_value, sn)
                  VALUES ({id}, null, null, null, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 1, {update_time},
-                  'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 'acc', {last_cmd_id_4}, {commit_time}, 'DATA UPDATE userauthorize Pin={user_pin}	AuthorizeTimezoneId=1	AuthorizeDoorId=15', false, null, {return_time}, 'CM7M211360031');
+                  'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 'acc', {last_cmd_id_4}, {commit_time}, 'DATA UPDATE userauthorize Pin={user_pin}	AuthorizeTimezoneId=1	AuthorizeDoorId=15', false, null, {return_time}, '0', 'CM7M211360031');
             """;
 
     String INSERT_PERS_ISSUECARD = """
