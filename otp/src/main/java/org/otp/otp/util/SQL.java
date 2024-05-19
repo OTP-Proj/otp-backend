@@ -23,7 +23,7 @@ public interface SQL {
 
     String INSERT_PERSON = """
             INSERT INTO pers_person(id, create_time, creater_code, creater_id, creater_name, op_version, update_time, updater_code, updater_id,
-            updater_name, auth_dept_id, exception_flag, id_card, id_card_physical_no, is_from, is_sendmail, last_name, mobile_phone, 'NAME',
+            updater_name, auth_dept_id, exception_flag, id_card, id_card_physical_no, is_from, is_sendmail, last_name, mobile_phone, "name",
             name_spell, number_pin, person_pwd, person_type, pin, pin_letter, self_pwd, send_sms, status)
             VALUES ({id}, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 0, {update_time},
              'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan',  {auth_dept_id}, 0, '', '', 'PERS_USER_MANUALLY_ADDED', FALSE, 
