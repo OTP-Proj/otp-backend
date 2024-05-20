@@ -67,6 +67,12 @@ public interface SQL {
             set 
             """;
 
+    String UPDATE_PERSON_CARD = """
+            update pers_card pp
+            set room_number = {roomNum}
+            where person_id = {persId};
+            """;
+
     String DELETE_PERSON = "update pers_person pp set status  = -1 where pp.id = {id};";
 
     String FIND_AUTH_DEPT_ID_BY_USER_TYPE = """

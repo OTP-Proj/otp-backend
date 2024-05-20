@@ -36,9 +36,10 @@ public class PersonController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<PersonResponse> updatePersonById(@PathVariable String id,
+    public ResponseEntity<Void> updatePersonById(@PathVariable String id,
                                                            @RequestBody PersonRequest request) {
-        return ResponseEntity.ok(this.personService.update(id, request));
+        this.personService.update(id, request);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

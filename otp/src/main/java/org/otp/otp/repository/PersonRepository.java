@@ -342,6 +342,134 @@ public class PersonRepository {
     }
 
     public PersonResponse update(String id, PersonRequest request) {
+        String queryPerson = SQL.GET_CARD_BY_PERSON_ID
+                .replace("{pers_id}", format(id));
+        System.out.println("queryPerson in update : " + queryPerson);
+
+        String sqlPerson = jdbcTemplate.queryForObject(queryPerson, String.class);
+        System.out.println("sqlPerson in update: " + sqlPerson);
+
+        if (isNull(request.getUsername()) && isNull(request.getSurname()) && isNull(request.getUserType()) && isNull(request.getRoomNumber())) {
+            throw new BaseException("At least one of these fields should be filled ", HttpStatus.BAD_REQUEST);
+        }
+            // check and update card info only
+//            if (nonNull(request.getCardId()) || nonNull(request.getRoomNumber())) {
+//                if (nonNull(request.getCardId())) {
+//                    var now = Timestamp.valueOf(LocalDateTime.now());
+//                    String queryCheckCardExistence = SQL.CHECK_IF_CARD_EXIST_BY_CARD_NO_WHEN_INSERTING_NEW_USER
+//                            .replace("{cardNo}", format(Encryption.encrypt(request.getCardId())));
+//                    System.out.println("Check Card Existance Query" + queryCheckCardExistence);
+//
+//                    String resultOfQueryCheckCardExistence = jdbcTemplate.queryForObject(queryCheckCardExistence, String.class);
+//                    System.out.println("resultOfQueryCheckCardExistence  : " + resultOfQueryCheckCardExistence);
+//
+//                    String sqlResultOfLastPin = jdbcTemplate.queryForObject(SQL.FIND_PERSON_LAST_PIN_PERS_CARD, String.class);
+//                    if (sqlResultOfLastPin == null || sqlResultOfLastPin.isBlank()) {
+//                        throw new BaseException("sqlResultOfLastPin is not found", HttpStatus.BAD_REQUEST);
+//                    }
+//                    System.out.println("sqlresultof last pin: " + sqlResultOfLastPin);
+//
+//                    String strLastPin = String.valueOf(Integer.parseInt(sqlResultOfLastPin) + 1);
+//
+//                    if (resultOfQueryCheckCardExistence == null || resultOfQueryCheckCardExistence.isBlank()) {
+//                        String idForCard = ID.value();
+//                        String query = SQL.INSERT_CARD
+//                                .replace("{id}", format(idForCard))
+//                                .replace("{create_time}", format(now.toString()))
+//                                .replace("{update_time}", format(now.toString()))
+//                                .replace("{card_no}", format(Encryption.encrypt(request.getCardId())))
+//                                .replace("{issue_time}", format(now.toString()))
+//                                .replace("{person_id}", format(id))
+//                                .replace("{person_pin}", format(strLastPin))
+//                                .replace("{room_number}", format(request.getRoomNumber()));
+//                        System.out.println("INSERT CARD QUERY!!!:  " + query);
+//                        var executeCardInsertionVar = jdbcTemplate.update(query);
+//                        if (executeCardInsertionVar > 0) {
+//                            System.out.println("Command executeCardInsertion success!");
+//                        } else {
+//                            System.out.println("Command executeCardInsertion failed!");
+//                            throw new BaseException("Exception occurred while creating card ", HttpStatus.BAD_REQUEST);
+//                        }
+//                    } else {
+//                        String query = SQL.UPDATE_CARD
+//                                .replace("{pers_id}", format(id))
+//                                .replace("{roomNum}", format(request.getRoomNumber()))
+//                                .replace("{id}", format(resultOfQueryCheckCardExistence));
+//                        System.out.println("UPDATE_EXISTING_CARD_PERSON_ID_WITH_NEW QUERY" + query);
+//
+//                        var updateExecuteCardInsertionVar = jdbcTemplate.update(query);
+//                        if (updateExecuteCardInsertionVar > 0) {
+//                            System.out.println("Command updateExecuteCardInsertionVar success!");
+//                        } else {
+//                            System.out.println("Command updateExecuteCardInsertionVar failed!");
+//                            throw new BaseException("Exception occurred while creating card ", HttpStatus.BAD_REQUEST);
+//                        }
+//                    }
+//
+//                }
+//
+//            }
+//        }
+
+        StringBuilder queryPersonUpdate = new StringBuilder(SQL.UPDATE_PERSON);
+
+        if (nonNull(request.getUsername())) {
+            queryPersonUpdate.append(SET_NAME.replace("{name}", format(request.getUsername()))).append(COMMA);
+            System.out.println("set name: " + queryPersonUpdate);
+        }
+
+        if (nonNull(request.getSurname())) {
+            queryPersonUpdate.append(SET_LAST_NAME.replace("{last_name}", format(request.getSurname()))).append(COMMA);
+            System.out.println("set last_name: " + queryPersonUpdate);
+        }
+
+        if (nonNull(request.getUserType())) {
+            String authDeptId = SQL.FIND_AUTH_DEPT_ID_BY_USER_TYPE.replace("{name}", format(UserType.fromEnValue(request.getUserType()).getRu()));
+            System.out.println("get authDeptId: " + authDeptId);
+            String sqlResultAuthDept = jdbcTemplate.queryForObject(authDeptId, String.class);
+            System.out.println("result authDeptId: " + sqlResultAuthDept);
+            if (sqlResultAuthDept == null || sqlResultAuthDept.isBlank()) {
+                throw new BaseException("User Type is not found", HttpStatus.BAD_REQUEST);
+            }
+            queryPersonUpdate.append(SET_USER_TYPE.replace("{auth_dept_id}", format(sqlResultAuthDept))).append(COMMA);
+            System.out.println("set user type: " + queryPersonUpdate);
+        }
+
+        if(nonNull(request.getRoomNumber())) {
+            String existCardRes = jdbcTemplate.queryForObject(GET_CARD_BY_PERSON_ID.replace("{pers_id}", format(id)), String.class);
+            System.out.println("existsCardRes : " + existCardRes);
+            if (nonNull(existCardRes)) {
+                String updateCardQuery = UPDATE_PERSON_CARD
+                        .replace("{roomNum}", format(request.getRoomNumber()))
+                        .replace("{persId}", format(id));
+                System.out.println("updateCardQuery: " + updateCardQuery);
+                var queryUpdatePersCard = jdbcTemplate.update(updateCardQuery);
+                System.out.println("queryUpdatePersCard : " + queryUpdatePersCard);
+                if (queryUpdatePersCard > 0) {
+                    System.out.println("Command queryUpdatePersCard success!");
+                } else {
+                    System.out.println("Command queryUpdatePersCard failed!");
+                    throw new BaseException("Exception occurred while queryUpdatePersCard ", HttpStatus.BAD_REQUEST);
+                }
+            }
+        }
+
+        String finalQuery = queryPersonUpdate.toString();
+        finalQuery = finalQuery.substring(0, finalQuery.lastIndexOf(COMMA));
+        System.out.println("finalQuery without where: " + finalQuery);
+
+        finalQuery = finalQuery + " " + WHERE_ID.replace("{id}", format(id));
+
+        System.out.println("UPDATE PERSON QUERY!!!:  " + finalQuery);
+
+        var queryUpdatePers = jdbcTemplate.update(finalQuery);
+        if (queryUpdatePers > 0) {
+            System.out.println("Command queryUpdatePers success!");
+        } else {
+            System.out.println("Command queryUpdatePers failed!");
+            throw new BaseException("Exception occurred while update user ", HttpStatus.BAD_REQUEST);
+        }
+
         return null;
     }
 
