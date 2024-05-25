@@ -2,23 +2,27 @@ package org.otp.otp.util;
 
 public interface SQL {
     String FIND_PERSON_BY_ID = """
-            SELECT pers.id, pers.name, pers.last_name, card.card_no, card.room_number, pers.create_time, pers.update_time,  dep.name AS user_type,
+            SELECT pers.id, pers.name, pers.last_name, card.card_no, ext.attr_value12 as room_number,
+             pers.create_time, pers.update_time,  dep.name AS user_type,
             card.person_pin
             FROM pers_person pers
             INNER JOIN auth_department dep ON  dep.id = pers.auth_dept_id
             INNER JOIN pers_card card ON card.person_id = pers.id
+            inner join pers_attribute_ext ext on  ext.person_id = pers.id
             WHERE dep.id NOT IN('297e9a79867a0d710186e52a4b2e7489', '297e9a79867a0d710186e53398a4761f')
             AND pers.status != -1 AND pers.id = ?;
             """;
     String FIND_ALL_PERSONS = """
-            SELECT pers.id, pers.name, pers.last_name, card.card_no, card.room_number, pers.create_time, pers.update_time,  dep.name AS user_type,
-            card.person_pin
-            FROM pers_person pers
-            INNER JOIN auth_department dep ON  dep.id = pers.auth_dept_id
-            INNER JOIN pers_card card ON card.person_id = pers.id
-            WHERE dep.id NOT IN('297e9a79867a0d710186e52a4b2e7489', '297e9a79867a0d710186e53398a4761f')
-            AND pers.status != -1
-            order by pers.create_time desc;
+           SELECT pers.id, pers.name, pers.last_name, card.card_no, ext.attr_value12 as room_number,
+            pers.create_time, pers.update_time,  dep.name AS user_type,
+           card.person_pin
+           FROM pers_person pers
+           INNER JOIN auth_department dep ON  dep.id = pers.auth_dept_id
+           INNER JOIN pers_card card ON card.person_id = pers.id
+           inner join pers_attribute_ext ext on  ext.person_id = pers.id
+           WHERE dep.id NOT IN('297e9a79867a0d710186e52a4b2e7489', '297e9a79867a0d710186e53398a4761f')
+           AND pers.status != -1
+           order by pers.create_time desc;
             """;
 
     String INSERT_PERSON = """
@@ -39,7 +43,7 @@ public interface SQL {
             """;
 
     String UPDATE_ROOM_NUMBER_BY_PERSON_PIN = """
-            update pers_card set room_number  = '' where person_pin = '';
+            update pers_attribute_ext set attr_value12  = {room_num}  where person_id  = {person_id};
             """;
 
     String UPDATE_CARD = """
@@ -71,6 +75,22 @@ public interface SQL {
             update pers_card pp
             set room_number = {roomNum}
             where person_id = {persId};
+            """;
+
+    String UPDATE_ATT_PERSON_NAME = """
+            update att_person set pers_person_name  = {name} where pers_person_id  = {pers_id};
+            """;
+
+    String UPDATE_ATT_PERSON_LASTNAME = """
+            update att_person set pers_person_lastname  = {lastname} where pers_person_id  = {pers_id};
+            """;
+
+    String UPDATE_ATT_PERSON_DEPT = """
+            update att_person set
+            auth_dept_id  = {dept_id},
+            auth_dept_name  = {dept_name},
+            auth_dept_code = {dept_code}
+            where pers_person_id  = {person_id};
             """;
 
     String DELETE_PERSON = "update pers_person pp set status  = -1 where pp.id = {id};";
@@ -201,6 +221,10 @@ INSERT INTO adms_devcmd (id, app_id, bio_tbl_id, company_id, create_time, create
                         updater_name, pers_person_id, privilege, super_auth)
                         VALUES ({id}, {create_time}, 'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', 0, {update_time},
                         'javidan', '297e9a798f016ffd018f10dc01ba7080', 'javidan', {pers_id}, 0, 0);
+            """;
+
+    String GET_ROOM_NUMBER = """
+            select pc.id from pers_card pc where pc.room_number  = {room_num};
             """;
 
     static boolean nonNull(String value) {

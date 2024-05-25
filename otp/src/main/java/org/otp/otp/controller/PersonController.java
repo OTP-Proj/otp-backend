@@ -22,7 +22,8 @@ public class PersonController {
 
     @PostMapping
     public ResponseEntity<PersonResponse> create(@RequestBody PersonRequest personRequest) {
-        return ResponseEntity.ok(this.personService.create(personRequest));
+//        return ResponseEntity.ok(this.personService.create(personRequest));
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping

@@ -8,7 +8,6 @@ public class PersonResponse {
     private String username;
     private String surname;
     private String roomNumber;
-    private String cardId;
     private String userType;
     private String createdAt;
     private String modifiedAt;
