@@ -8,5 +8,5 @@ public class MonitoringResponse {
     private String device;
     private String person;
     private String type;
-    private String card;
+    private String roomNumber;
 }

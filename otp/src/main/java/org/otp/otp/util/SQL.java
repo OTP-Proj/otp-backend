@@ -121,17 +121,19 @@ public interface SQL {
                     """;
 
     String GET_HISTORY_OF_TRANSACTION = """
-            SELECT trx.event_time AS "time",\s
-            trx.reader_name AS device,
-            trx.name || ' ' || trx.last_name AS person,
-            trx.dept_name AS "type",
-            trx.card_no AS card\s
-            FROM acc_transaction AS trx
-            WHERE trx.event_point_id IN('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771', '297e9a79821ad2e601821ae015860770', '297e9a79821ad2e601821ae015860772')
-            AND trx.dept_name IS NOT NULL
-            AND trx.dept_name != ''
-            ORDER BY id DESC
-            LIMIT 100;
+           SELECT trx.event_time AS "time",s
+          trx.reader_name AS device,
+          trx.name || ' ' || trx.last_name AS person,
+          trx.dept_name AS "type",
+          ext.attr_value12  as room_number
+          FROM acc_transaction AS trx
+          inner join pers_person pers on pers.pin = trx.pin
+          inner join pers_attribute_ext ext on ext.person_id = pers.id
+          WHERE trx.event_point_id IN('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771', '297e9a79821ad2e601821ae015860770', '297e9a79821ad2e601821ae015860772')
+          AND trx.dept_name IS NOT NULL
+          AND trx.dept_name != ''
+          ORDER BY id DESC
+          LIMIT 100;
             """;
 
     String GET_HISTORY_OF_TRANSACTION_WITH_FILTER = """
@@ -139,9 +141,10 @@ public interface SQL {
             trx.reader_name AS device,
             trx.name || ' ' || trx.last_name AS person,
             trx.dept_name AS "type",
-            trx.card_no AS card\s
+            ext.attr_value12  as room_number
             FROM acc_transaction AS trx
-            INNER JOIN pers_card as crd ON  crd.card_no = trx.card_no
+            inner join pers_person pers on pers.pin = trx.pin
+            inner join pers_attribute_ext ext on ext.person_id = pers.id
             WHERE trx.event_point_id IN('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771', '297e9a79821ad2e601821ae015860770', '297e9a79821ad2e601821ae015860772')
             AND trx.dept_name IS NOT NULL
             AND trx.dept_name != ''

@@ -19,8 +19,7 @@ public class MonitoringRepository {
     private static final String QUERY_NAME = "\n and LOWER(trx.name || ' ' || trx.last_name) LIKE LOWER %s";
     private static final String QUERY_TIME_GTE = "\nAND trx.event_time >= %s";
     private static final String QUERY_TIME_LTE = "\nAND trx.event_time <= %s";
-    private static final String QUERY_CARD_NO = "\nAND trx.card_no = %s";
-    private static final String QUERY_ROOM_NUMBER = "\nAND crd.room_number = %s";
+    private static final String QUERY_ROOM_NUMBER = "\nAND ext.attr_value12 = %s";
     private static final String QUERY_END = "\nORDER BY trx.id DESC LIMIT 50;";
     private final JdbcTemplate jdbcTemplate;
 
@@ -52,9 +51,6 @@ public class MonitoringRepository {
         if (nonNull(to)) {
             query += String.format(QUERY_TIME_LTE, "'" + to + "'");
         }
-        if (nonNull(cardId)) {
-            query += String.format(QUERY_CARD_NO, "'" + cardId + "'");
-        }
         if (nonNull(roomNumber)) {
             query += String.format(QUERY_ROOM_NUMBER, "'" + roomNumber + "'");
         }
@@ -69,7 +65,7 @@ public class MonitoringRepository {
         @Override
         public MonitoringResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
             MonitoringResponse monitoringResponse = new MonitoringResponse();
-            monitoringResponse.setCard(rs.getString("card"));
+            monitoringResponse.setRoomNumber(rs.getString("room_number"));
             monitoringResponse.setType(getUserType(rs.getString("type")));
             monitoringResponse.setTime(rs.getString("time"));
             monitoringResponse.setDevice(rs.getString("device"));
