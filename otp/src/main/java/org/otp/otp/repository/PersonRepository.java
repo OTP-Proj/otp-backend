@@ -377,6 +377,7 @@ public class PersonRepository {
         return jdbcTemplate.query(SQL.FIND_ALL_PERSONS, new PersonResponseRowMapper());
     }
 
+    @Transactional
     public PersonResponse update(String id, PersonRequest request) {
         if (isNull(request.getUsername()) && isNull(request.getSurname()) && isNull(request.getUserType()) && isNull(request.getRoomNumber())) {
             throw new BaseException("At least one of these fields should be filled ", HttpStatus.BAD_REQUEST);
