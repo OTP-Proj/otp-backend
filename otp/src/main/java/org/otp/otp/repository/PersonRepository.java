@@ -25,10 +25,10 @@ import static org.otp.otp.util.SQL.*;
 @Repository
 public class PersonRepository {
     private final JdbcTemplate jdbcTemplate;
-    private static final String SET_NAME = " pp.name = {name}, name_spell  = {name}";
+    private static final String SET_NAME = " name = {name}, name_spell  = {name}";
     private static final String SET_LAST_NAME = " last_name  = {last_name}";
     private static final String SET_USER_TYPE = " auth_dept_id  = {auth_dept_id}";
-    private static final String WHERE_ID = "where pp.id = {id};";
+    private static final String WHERE_ID = "where id = {id};";
     private static final String COMMA = ",";
 
     @Autowired

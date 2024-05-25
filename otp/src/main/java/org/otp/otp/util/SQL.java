@@ -67,7 +67,7 @@ public interface SQL {
             """;
 
     String UPDATE_PERSON = """
-            update pers_person pp
+            update pers_person
             set 
             """;
 
