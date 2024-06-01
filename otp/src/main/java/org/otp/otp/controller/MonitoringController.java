@@ -20,8 +20,9 @@ public class MonitoringController {
     }
 
     @GetMapping("/live")
-    public ResponseEntity<List<MonitoringResponse>> live() {
-        return ResponseEntity.ok(this.monitoringService.live());
+    public ResponseEntity<List<MonitoringResponse>> live(
+            @RequestParam(value = "isInside", required = false, defaultValue = "false") boolean isInside) {
+        return ResponseEntity.ok(this.monitoringService.live(isInside));
     }
 
     @GetMapping("/offline")

@@ -29,8 +29,9 @@ public class MonitoringRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<MonitoringResponse> getLiveData() {
-        return jdbcTemplate.query(SQL.GET_HISTORY_OF_TRANSACTION, new MonitoringResponseRowMapper());
+    public List<MonitoringResponse> getLiveData(boolean isInside) {
+        return jdbcTemplate.query(isInside ? SQL.GET_USERS_ARE_IN_THE_INSIDE : SQL.GET_HISTORY_OF_TRANSACTION,
+                new MonitoringResponseRowMapper());
     }
 
     public List<MonitoringResponse> getFilteredData(String username, String from,

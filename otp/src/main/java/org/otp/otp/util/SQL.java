@@ -136,6 +136,44 @@ public interface SQL {
          LIMIT 100;
             """;
 
+    String GET_USERS_ARE_IN_THE_INSIDE = """
+            WITH latest_transactions AS (
+            SELECT
+                trx.pin,
+                MAX(trx.event_time) AS max_time
+            FROM
+                acc_transaction AS trx
+            WHERE
+                trx.event_point_id IN ('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771', '297e9a79821ad2e601821ae015860770', '297e9a79821ad2e601821ae015860772')
+                AND trx.dept_name IS NOT NULL
+                AND trx.dept_name != ''
+            GROUP BY
+                trx.pin
+            )
+            SELECT
+                trx.event_time AS "time",
+                trx.event_point_id,
+                trx.event_point_name,
+                trx.reader_name AS device,
+                trx.pin,
+                trx.name || ' ' || trx.last_name AS person,
+                trx.dept_name AS "type",
+                ext.attr_value12 AS room_number
+            FROM
+                acc_transaction AS trx
+            INNER JOIN
+                pers_person pers ON pers.pin = trx.pin
+            INNER JOIN
+                pers_attribute_ext ext ON ext.person_id = pers.id
+            INNER JOIN
+                latest_transactions lt ON trx.pin = lt.pin AND trx.event_time = lt.max_time
+            WHERE
+                trx.event_point_id IN ('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771')
+            ORDER BY
+                trx.event_time DESC
+            LIMIT 100;
+            """;
+
     String GET_HISTORY_OF_TRANSACTION_WITH_FILTER = """
             SELECT trx.event_time AS "time",
             trx.reader_name AS device,

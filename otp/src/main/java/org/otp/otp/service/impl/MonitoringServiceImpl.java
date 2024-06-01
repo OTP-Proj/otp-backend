@@ -20,8 +20,8 @@ public class MonitoringServiceImpl implements MonitoringService {
     }
 
     @Override
-    public List<MonitoringResponse> live() {
-        return monitoringRepository.getLiveData();
+    public List<MonitoringResponse> live(boolean isInside) {
+        return monitoringRepository.getLiveData(isInside);
     }
 
     @Override
