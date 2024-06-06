@@ -20,7 +20,7 @@ public class MonitoringRepository {
     private static final String QUERY_TIME_GTE = "\nAND trx.event_time >= %s";
     private static final String QUERY_TIME_LTE = "\nAND trx.event_time <= %s";
     private static final String QUERY_ROOM_NUMBER = "\nAND ext.attr_value12 = %s";
-    private static final String QUERY_END = "\nORDER BY trx.id DESC LIMIT 50;";
+    private static final String QUERY_END = "\nORDER BY trx.id DESC LIMIT 1000;";
     private final JdbcTemplate jdbcTemplate;
 
 
