@@ -171,7 +171,6 @@ public interface SQL {
                 trx.event_point_id IN ('297e9a79821ad2e601821ae01586076f', '297e9a79821ad2e601821ae015860771')
             ORDER BY
                 trx.event_time DESC
-            LIMIT 100;
             """;
 
     String GET_HISTORY_OF_TRANSACTION_WITH_FILTER = """
