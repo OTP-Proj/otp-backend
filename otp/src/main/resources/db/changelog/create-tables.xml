@@ -47,4 +47,11 @@
         <modifyDataType tableName="jwt_token_otp" columnName="token" newDataType="TEXT"/>
     </changeSet>
 
+    <changeSet id="05-add-first-name-and-last-name-columns" author="javidan@alizadaotp">
+        <addColumn tableName="users_otp" schemaName="public">
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

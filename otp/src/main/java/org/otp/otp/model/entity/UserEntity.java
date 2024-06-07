@@ -27,4 +27,10 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
     private UserRole userRole;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
 }

@@ -125,7 +125,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         return Map.of(
                 "userCode", entity.getUserCode(),
-                "role", entity.getUserRole().name()
+                "role", entity.getUserRole().name(),
+                "firstname", entity.getFirstName(),
+                "lastname", entity.getLastName()
         );
     }
 
@@ -135,6 +137,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         userEntity.setUserCode(request.getUserCode());
         userEntity.setPassword(this.passwordEncoder.encode(request.getPassword()));
         userEntity.setUserRole(request.getUserRole());
+        userEntity.setFirstName(request.getFirstName());
+        userEntity.setLastName(request.getLastName());
         this.userRepository.save(userEntity);
     }
 }
