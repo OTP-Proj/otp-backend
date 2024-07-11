@@ -5,7 +5,7 @@ services:
     container_name: redis_otp
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "10.100.40.14:6379:6379"
     volumes:
       - ./redis_data:/data
     networks:
