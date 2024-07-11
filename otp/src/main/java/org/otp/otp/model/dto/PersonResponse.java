@@ -13,4 +13,5 @@ public class PersonResponse {
     private String modifiedAt;
     private Boolean active;
     private String personPin;
+    private String image;
 }

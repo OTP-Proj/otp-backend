@@ -16,6 +16,10 @@ datasource:
   password: 2sgQc4cM
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 3MB
+      max-request-size: 3MB
   jackson:
     time-zone: UTC
   mvc:
@@ -23,6 +27,18 @@ spring:
       matching-strategy: ant_path_matcher
   main:
     debug: true
+
+  redis:
+    host: localhost
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 2
+    cache:
+      type: lettuce
+
   datasource:
 #    url: jdbc:postgresql://postgres2:5432/otp_db #--for server
     url: jdbc:postgresql://postgres2:5432/public #--for local
@@ -47,3 +63,6 @@ jwt:
   salt: ThisIssalT00019127324353
   secret: thisissecret
   expires: 30000000
+
+filestorage:
+  path: /otp/images

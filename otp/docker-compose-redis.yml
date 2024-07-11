@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  redis:
+    image: redis:latest
+    container_name: redis_otp
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis_data:/data
+    networks:
+      - db_network
+
+networks:
+  db_network:
+    driver: bridge

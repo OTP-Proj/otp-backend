@@ -46,6 +46,10 @@ public interface SQL {
             update pers_attribute_ext set attr_value12  = {room_num}  where person_id  = {person_id};
             """;
 
+    String UPDATE_IMAGE_PATH_BY_PERSON_ID = """
+            update pers_attribute_ext set attr_image_path  = {image_path}  where person_id  = {person_id};
+            """;
+
     String UPDATE_CARD = """
             update pers_card set 
             """;

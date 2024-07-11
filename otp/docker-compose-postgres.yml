@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  postgres2:
+    image: postgres:latest
+    container_name: postgresql_otp
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: OtpUser
+      POSTGRES_PASSWORD: Otp@10934!PasswAA
+      POSTGRES_DB: public
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgresql_data_otp:/var/lib/postgresql/data
+    networks:
+      - db_network
+
+networks:
+  db_network:
+    driver: bridge

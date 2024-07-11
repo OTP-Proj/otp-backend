@@ -1,29 +1,12 @@
 version: '3.7'
 services:
-  postgres2:
-    image: postgres:latest
-    container_name: postgresql_otp
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: OtpUser
-      POSTGRES_PASSWORD: Otp@10934!PasswAA
-      POSTGRES_DB: public
-    ports:
-      - "10.100.40.14:5432:5432"
-    volumes:
-      - ./postgresql_data_otp:/var/lib/postgresql/data
-    networks:
-      - db_network
-
   spring-boot-app:
     build:
       context: .
 #      args:
 #        KEYSTORE_LOCATION: /app/keystore.p12
     ports:
-      - "10.100.40.14:8088:8088"
-    depends_on:
-      - postgres2
+      - "8088:8088"
     networks:
       - db_network
 
