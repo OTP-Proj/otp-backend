@@ -1,6 +1,7 @@
 package org.otp.otp.repository;
 
 import org.otp.otp.exception.BaseException;
+import org.otp.otp.model.dto.PersonDto;
 import org.otp.otp.model.dto.PersonRequest;
 import org.otp.otp.model.dto.PersonResponse;
 import org.otp.otp.model.dto.UserType;
@@ -19,6 +20,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import static org.otp.otp.util.SQL.*;
 
@@ -369,11 +371,11 @@ public class PersonRepository {
 
     }
 
-    public PersonResponse getPersonById(String id) {
+    public PersonDto getPersonById(String id) {
         return jdbcTemplate.queryForObject(SQL.FIND_PERSON_BY_ID, new PersonResponseRowMapper(), id);
     }
 
-    public List<PersonResponse> getPersons() {
+    public List<PersonDto> getPersons() {
         return jdbcTemplate.query(SQL.FIND_ALL_PERSONS, new PersonResponseRowMapper());
     }
 
@@ -477,7 +479,21 @@ public class PersonRepository {
         }
 
         if (isNull(request.getUsername()) && isNull(request.getSurname()) && isNull(request.getUserType())) {
-            return jdbcTemplate.queryForObject(SQL.FIND_PERSON_BY_ID, new PersonResponseRowMapper(), id);
+            PersonDto personDto = jdbcTemplate.queryForObject(SQL.FIND_PERSON_BY_ID, new PersonResponseRowMapper(), id);
+            PersonResponse personResponse = new PersonResponse();
+            if (Objects.isNull(personDto)) {
+                return personResponse;
+            }
+            personResponse.setSurname(personDto.getSurname());
+            personResponse.setId(personDto.getId());
+            personResponse.setUserType(personDto.getUserType());
+            personResponse.setPersonPin(personDto.getPersonPin());
+            personResponse.setUsername(personDto.getUsername());
+            personResponse.setActive(personDto.getActive());
+            personResponse.setRoomNumber(personDto.getRoomNumber());
+            personResponse.setModifiedAt(personDto.getModifiedAt());
+            personResponse.setCreatedAt(personDto.getCreatedAt());
+            return personResponse;
         }
 
         String finalQuery = queryPersonUpdate.toString();
@@ -495,7 +511,21 @@ public class PersonRepository {
             System.out.println("Command queryUpdatePers failed!");
             throw new BaseException("Exception occurred while update user ", HttpStatus.BAD_REQUEST);
         }
-        return jdbcTemplate.queryForObject(SQL.FIND_PERSON_BY_ID, new PersonResponseRowMapper(), id);
+        PersonDto personDto = jdbcTemplate.queryForObject(SQL.FIND_PERSON_BY_ID, new PersonResponseRowMapper(), id);
+        PersonResponse personResponse = new PersonResponse();
+        if (Objects.isNull(personDto)) {
+            return personResponse;
+        }
+        personResponse.setSurname(personDto.getSurname());
+        personResponse.setId(personDto.getId());
+        personResponse.setUserType(personDto.getUserType());
+        personResponse.setPersonPin(personDto.getPersonPin());
+        personResponse.setUsername(personDto.getUsername());
+        personResponse.setActive(personDto.getActive());
+        personResponse.setRoomNumber(personDto.getRoomNumber());
+        personResponse.setModifiedAt(personDto.getModifiedAt());
+        personResponse.setCreatedAt(personDto.getCreatedAt());
+        return personResponse;
     }
 
     public void delete(String id) {
@@ -513,10 +543,10 @@ public class PersonRepository {
         return "'" + value + "'";
     }
 
-    private static class PersonResponseRowMapper implements RowMapper<PersonResponse> {
+    private static class PersonResponseRowMapper implements RowMapper<PersonDto> {
         @Override
-        public PersonResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
-            PersonResponse personResponse = new PersonResponse();
+        public PersonDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+            PersonDto personResponse = new PersonDto();
             personResponse.setId(rs.getString("id"));
             personResponse.setUsername(rs.getString("name"));
             personResponse.setSurname(rs.getString("last_name"));
@@ -525,6 +555,7 @@ public class PersonRepository {
             personResponse.setCreatedAt(rs.getString("create_time"));
             personResponse.setModifiedAt(rs.getString("update_time"));
             personResponse.setPersonPin(rs.getString("person_pin"));
+            personResponse.setImage(rs.getString("image_path"));
             return personResponse;
         }
     }

@@ -3,7 +3,7 @@ package org.otp.otp.model.dto;
 import lombok.Data;
 
 @Data
-public class MonitoringResponse {
+public class MonitoringDto {
     private String time;
     private String device;
     private String person;

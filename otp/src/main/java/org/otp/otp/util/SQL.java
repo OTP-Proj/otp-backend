@@ -15,7 +15,8 @@ public interface SQL {
     String FIND_ALL_PERSONS = """
            SELECT pers.id, pers.name, pers.last_name, card.card_no, ext.attr_value12 as room_number,
             pers.create_time, pers.update_time,  dep.name AS user_type,
-           card.person_pin
+           card.person_pin,
+           ext.attr_image_path AS image_path
            FROM pers_person pers
            INNER JOIN auth_department dep ON  dep.id = pers.auth_dept_id
            INNER JOIN pers_card card ON card.person_id = pers.id
@@ -129,6 +130,7 @@ public interface SQL {
          trx.reader_name AS device,
          trx.name || ' ' || trx.last_name AS person,
          trx.dept_name AS "type",
+         ext.attr_image_path AS image_path,
          ext.attr_value12  as room_number
          FROM acc_transaction AS trx
          inner join pers_person pers on pers.pin = trx.pin
@@ -160,6 +162,7 @@ public interface SQL {
                 trx.event_point_name,
                 trx.reader_name AS device,
                 trx.pin,
+                ext.attr_image_path AS image_path,
                 trx.name || ' ' || trx.last_name AS person,
                 trx.dept_name AS "type",
                 ext.attr_value12 AS room_number
@@ -182,6 +185,7 @@ public interface SQL {
             trx.reader_name AS device,
             trx.name || ' ' || trx.last_name AS person,
             trx.dept_name AS "type",
+            ext.attr_image_path AS image_path,
             ext.attr_value12  as room_number
             FROM acc_transaction AS trx
             inner join pers_person pers on pers.pin = trx.pin

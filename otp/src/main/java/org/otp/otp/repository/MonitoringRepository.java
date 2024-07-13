@@ -1,5 +1,6 @@
 package org.otp.otp.repository;
 
+import org.otp.otp.model.dto.MonitoringDto;
 import org.otp.otp.model.dto.MonitoringResponse;
 import org.otp.otp.model.dto.UserType;
 import org.otp.otp.util.SQL;
@@ -29,12 +30,12 @@ public class MonitoringRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<MonitoringResponse> getLiveData(boolean isInside) {
+    public List<MonitoringDto> getLiveData(boolean isInside) {
         return jdbcTemplate.query(isInside ? SQL.GET_USERS_ARE_IN_THE_INSIDE : SQL.GET_HISTORY_OF_TRANSACTION,
                 new MonitoringResponseRowMapper());
     }
 
-    public List<MonitoringResponse> getFilteredData(String username, String from,
+    public List<MonitoringDto> getFilteredData(String username, String from,
                                                     String to, String cardId, String roomNumber) {
         return jdbcTemplate.query(prepareQueryOfTransactionHistoryWithFilter(username, from, to, cardId, roomNumber),
                 new MonitoringResponseRowMapper());
@@ -62,15 +63,16 @@ public class MonitoringRepository {
     }
 
 
-    private static class MonitoringResponseRowMapper implements RowMapper<MonitoringResponse> {
+    private static class MonitoringResponseRowMapper implements RowMapper<MonitoringDto> {
         @Override
-        public MonitoringResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
-            MonitoringResponse monitoringResponse = new MonitoringResponse();
+        public MonitoringDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+            MonitoringDto monitoringResponse = new MonitoringDto();
             monitoringResponse.setRoomNumber(rs.getString("room_number"));
             monitoringResponse.setType(getUserType(rs.getString("type")));
             monitoringResponse.setTime(rs.getString("time"));
             monitoringResponse.setDevice(rs.getString("device"));
             monitoringResponse.setPerson(rs.getString("person"));
+            monitoringResponse.setImage(rs.getString("image_path"));
             return monitoringResponse;
         }
     }
