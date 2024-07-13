@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  spring-boot-app:
+  spring-boot-app_dev:
     build:
       context: .
 #      args:
