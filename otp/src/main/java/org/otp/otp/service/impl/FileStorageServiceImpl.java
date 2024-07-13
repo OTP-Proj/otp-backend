@@ -42,6 +42,15 @@ public class FileStorageServiceImpl implements FileStorageService {
         }
     }
 
+    public Path findUserFile(String imagePath) {
+        Path path = Paths.get(fileStorageLocation.toString(), imagePath);
+        if (Files.exists(path)) {
+            return path;
+        } else {
+            return null;
+        }
+    }
+
 
     @Override
     public FileStorageResponse writeFileToFileStorage(MultipartFile file, String userId) {

@@ -16,10 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -27,19 +25,16 @@ public class FileServiceImpl implements FileService {
     private final FileRepository fileRepository;
     private final FileStorageService fileStorageService;
     private final RedisTemplate<String, String> redisTemplate;
-    private final Path fileStorageLocation;
     private static final String DATA = "data:";
     private static final String BASE_64 = ";base64,";
 
     @Autowired
     public FileServiceImpl(FileRepository fileRepository,
                            FileStorageService fileStorageService,
-                           RedisTemplate<String, String> redisTemplate,
-                           Path fileStorageLocation) {
+                           RedisTemplate<String, String> redisTemplate) {
         this.fileRepository = fileRepository;
         this.fileStorageService = fileStorageService;
         this.redisTemplate = redisTemplate;
-        this.fileStorageLocation = fileStorageLocation;
     }
 
     @Override
@@ -62,7 +57,7 @@ public class FileServiceImpl implements FileService {
         if (encodedContent != null) {
             return new FileStorageResponse(null, encodedContent);
         } else {
-            Path userFilePath = findUserFile(imagePath);
+            Path userFilePath = fileStorageService.findUserFile(imagePath);
 
             if (userFilePath == null) {
                 return null;
@@ -80,15 +75,6 @@ public class FileServiceImpl implements FileService {
                 log.error("Could not read file for user {}. Please try again!", imagePath, ex);
                 throw new FileRelatedException("Could not read file for user " + imagePath + ". Please try again!");
             }
-        }
-    }
-
-    private Path findUserFile(String imagePath) {
-        Path path = Paths.get(fileStorageLocation.toString(), imagePath);
-        if (Files.exists(path)) {
-            return path;
-        } else {
-            return null;
         }
     }
 
