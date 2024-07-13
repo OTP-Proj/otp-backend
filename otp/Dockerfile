@@ -9,5 +9,5 @@ COPY --from=build /app/target/*.jar app.jar
 #ARG KEYSTORE_LOCATION
 #ENV KEYSTORE_LOCATION ${KEYSTORE_LOCATION}
 #COPY keystore.p12 /app/keystore.p12
-EXPOSE 8089
+EXPOSE 8088
 CMD ["java", "-jar", "app.jar"]
