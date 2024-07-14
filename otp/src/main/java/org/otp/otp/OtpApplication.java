@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
 @EnableWebMvc
-@EnableCaching
 public class OtpApplication {
 
     public static void main(String[] args) {
