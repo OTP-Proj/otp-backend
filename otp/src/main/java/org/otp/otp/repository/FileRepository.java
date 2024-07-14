@@ -6,13 +6,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import static java.lang.String.format;
 import static org.otp.otp.util.SQL.UPDATE_IMAGE_PATH_BY_PERSON_ID;
 
 @Repository
 public class FileRepository {
 
     private final JdbcTemplate jdbcTemplate;
+
+    private String format(String value) {
+        return "'" + value + "'";
+    }
 
     @Autowired
     public FileRepository(JdbcTemplate jdbcTemplate) {

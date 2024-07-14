@@ -65,4 +65,4 @@ jwt:
   expires: 30000000
 
 filestorage:
-  path: /otp/images
+  path: media/otp_images/images
