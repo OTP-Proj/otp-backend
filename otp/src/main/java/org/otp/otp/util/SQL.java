@@ -4,6 +4,7 @@ public interface SQL {
     String FIND_PERSON_BY_ID = """
             SELECT pers.id, pers.name, pers.last_name, card.card_no, ext.attr_value12 as room_number,
              pers.create_time, pers.update_time,  dep.name AS user_type,
+             ext.attr_image_path AS image_path,
             card.person_pin
             FROM pers_person pers
             INNER JOIN auth_department dep ON  dep.id = pers.auth_dept_id
