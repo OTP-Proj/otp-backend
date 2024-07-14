@@ -54,7 +54,7 @@ public class PersonServiceImpl implements PersonService {
     public PersonResponse getPersonById(String id) {
         PersonDto personDto = this.personRepository.getPersonById(id);
         PersonResponse personResponse = map(personDto);
-        FileStorageResponse response = fileService.readFileFromFileStorage(personResponse.getImage());
+        FileStorageResponse response = fileService.readFileFromFileStorage(personDto.getImage());
         if (response != null && response.getFileEncodedContent() != null) {
             personResponse.setImage(response.getFileEncodedContent());
         }
