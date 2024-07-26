@@ -6,7 +6,7 @@ services:
 #      args:
 #        KEYSTORE_LOCATION: /app/keystore.p12
     ports:
-      - "10.100.40.14:8088:8088"
+      - "8088:8088"
     volumes:
       - ./media/otp_images/images:/media/otp_images/images
     networks:
