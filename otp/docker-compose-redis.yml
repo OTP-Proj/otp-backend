@@ -7,7 +7,7 @@ services:
     ports:
       - "10.100.40.14:6379:6379"
     volumes:
-      - ./redis_data:/data
+      - /home/otpadmin/cache/redis_data:/data
     networks:
       - db_network
 

@@ -11,7 +11,7 @@ services:
     ports:
       - "10.100.40.14:5433:5432"
     volumes:
-      - ./postgresql_data_otp:/var/lib/postgresql/data
+      - /home/otpadmin/data/postgresql_data_otp:/var/lib/postgresql/data
     networks:
       - db_network
 
